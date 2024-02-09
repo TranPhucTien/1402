@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+        />
+        <style>
+            html {
+                color: #0c2d57;
+            }
+            body {
+                background-color: #ffb0b0;
+            }
+            .noselect {
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Old versions of Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+            }
+            .sticker {
+                width: 130px;
+                height: 130px;
+                background-image: url(https://zalo-api.zadn.vn/api/emoticon/sprite?eid=45427&size=130&checksum=e5efc899de05584b93891a56fc70a545);
+                background-position: 0px 0px;
+                background-repeat: repeat-x;
+                background-size: 1300px 130px;
+            }
+        </style>
+    </head>
+    <body class="overflow-hidden noselect">
+        <div
+            class="d-flex flex-column justify-content-center align-items-center"
+            style="height: 100vh"
+        >
+            <div class="sticker"></div>
+            <h1 class="text-center">Cậu có muốn đi valentine với tớ không</h1>
+            <div
+                id="btn-group"
+                class="d-flex justify-content-center align-item-center flex-wrap mt-4"
+            >
+                <button
+                    class="btn btn-primary mr-4"
+                    style="width: 70px; height: 40px; background: #0d9276"
+                >
+                    Có
+                </button>
+                <button
+                    class="btn btn-danger"
+                    style="width: auto; height: 40px"
+                >
+                    Không
+                </button>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        const stickerElem = document.querySelector('.sticker');
+        let count = 0;
+        setInterval(() => {
+            stickerElem.style.backgroundPosition = count + 'px 0px';
+            count -= 130;
+            if (count < -2800) {
+                count = 0;
+            }
+        }, 100);
+
+        const arr = [
+            'Cậu có chắc chứ',
+            'Thật sự chắc chắn chứ',
+            'Hãy nghĩ lại đi',
+            "Khôngn't",
+        ];
+        const sticker = {
+            url: 'https://zalo-api.zadn.vn/api/emoticon/sprite?eid=43553&size=130&checksum=ea804f3a7eb6c8540cca60ff5120464e',
+            size: '2470px 130px',
+        };
+        const btnLike = document.querySelector('.btn-primary');
+        const btnDislike = document.querySelector('.btn-danger');
+        const btnGroup = document.querySelector('#btn-group');
+        const h1Elem = document.querySelector('h1');
+
+        let iArray = 0;
+        let btnWidth = 70;
+        let btnHeight = 40;
+        btnDislike.addEventListener('click', () => {
+            if (iArray < arr.length) {
+                btnWidth *= 1.8;
+                btnHeight *= 1.8;
+                console.log({ btnWidth, btnHeight });
+                btnLike.style.width = btnWidth + 'px';
+                btnLike.style.height = btnHeight + 'px';
+                btnDislike.textContent = arr[iArray];
+                iArray++;
+            } else {
+                setTimeout(() => {
+                    btnLike.click();
+                }, 2000);
+            }
+        });
+
+        btnLike.addEventListener('click', () => {
+            stickerElem.style.backgroundSize = sticker.size;
+            stickerElem.style.backgroundImage = `url(${sticker.url})`;
+            h1Elem.textContent = 'Yayyyyyyyyyyy';
+            btnGroup.innerHTML = '';
+        });
+    </script>
+</html>
